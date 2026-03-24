@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Imposter Who? — Party game with AI-generated words, custom packs, and difficulty levels",
   "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
