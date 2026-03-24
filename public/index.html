@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Imposter Who?</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Home ─────────────────────────────────────────────────────────────── -->
+  <div id="screen-home" class="screen active">
+    <div class="home-logo">
+      <div class="logo-icon">🕵️</div>
+      <h1 class="logo-title">Imposter<br>Who?</h1>
+      <p class="logo-tagline">The social deduction party game</p>
+    </div>
+    <div class="home-actions">
+      <button class="btn btn-primary btn-lg" onclick="App.showScreen('players')">New Game</button>
+      <button class="btn btn-secondary btn-lg" onclick="App.showScreen('packs')">Custom Packs</button>
+      <button class="btn btn-ghost btn-lg" onclick="App.showScreen('settings')">Settings</button>
+    </div>
+  </div>
+
+  <!-- ── Settings ─────────────────────────────────────────────────────────── -->
+  <div id="screen-settings" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="App.back()">‹ Back</button>
+      <h2>Settings</h2>
+    </div>
+    <div class="settings-body">
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Adult Content</h3>
+          <p>Unlock adult-only categories. Age confirmation required.</p>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="toggle-adult" onchange="App.toggleAdultRequest(this.checked)" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>AI Word Generation</h3>
+          <p>Generate fresh words each session via AI (requires internet).</p>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="toggle-ai" onchange="App.toggleAI(this.checked)" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Age Gate Modal ────────────────────────────────────────────────────── -->
+  <div id="modal-age-gate" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" onclick="App.confirmAge(false)"></div>
+    <div class="modal-card">
+      <div class="modal-icon">🔞</div>
+      <h2>Age Confirmation</h2>
+      <p>Adult categories contain mature themes suitable for adults only. By continuing you confirm you are 18 years of age or older.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="App.confirmAge(true)">I am 18+, unlock</button>
+        <button class="btn btn-ghost" onclick="App.confirmAge(false)">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Players ───────────────────────────────────────────────────────────── -->
+  <div id="screen-players" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="App.back()">‹ Back</button>
+      <h2>Players</h2>
+    </div>
+    <div class="players-body">
+      <p class="section-hint">Add 3–20 players</p>
+      <div id="player-list" class="player-list"></div>
+      <button class="btn btn-outline" id="btn-add-player" onclick="App.addPlayer()">+ Add Player</button>
+    </div>
+    <div class="screen-footer">
+      <button class="btn btn-primary btn-lg" id="btn-next-categories" onclick="App.goToCategories()" disabled>
+        Choose Categories →
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Categories ───────────────────────────────────────────────────────── -->
+  <div id="screen-categories" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="App.back()">‹ Back</button>
+      <h2>Categories</h2>
+    </div>
+    <div class="categories-body">
+      <p class="section-hint">Select one or more categories and set a difficulty for each.</p>
+      <div id="categories-list" class="categories-list"></div>
+    </div>
+    <div class="screen-footer">
+      <button class="btn btn-primary btn-lg" id="btn-start-game" onclick="App.startGame()" disabled>
+        Start Game →
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Loading ───────────────────────────────────────────────────────────── -->
+  <div id="screen-loading" class="screen">
+    <div class="loading-body">
+      <div class="spinner"></div>
+      <h2>Generating words…</h2>
+      <p>Creating a fresh word pool for this session</p>
+    </div>
+  </div>
+
+  <!-- ── Pass to Player ────────────────────────────────────────────────────── -->
+  <div id="screen-pass-to" class="screen">
+    <div class="pass-body">
+      <div class="pass-icon">📱</div>
+      <p class="pass-label">Pass the phone to</p>
+      <h2 id="pass-player-name" class="pass-name"></h2>
+      <p class="pass-instruction">Make sure nobody else is looking</p>
+      <button class="btn btn-primary btn-lg" onclick="App.showReveal()">I'm Ready →</button>
+    </div>
+  </div>
+
+  <!-- ── Reveal ────────────────────────────────────────────────────────────── -->
+  <div id="screen-reveal" class="screen">
+    <div class="reveal-body">
+      <p class="reveal-player-name" id="reveal-player-name"></p>
+      <p class="reveal-instruction">Hold to reveal your word</p>
+
+      <div id="reveal-card" class="reveal-card">
+        <div id="reveal-front" class="reveal-face reveal-front">
+          <span class="reveal-eye">👁</span>
+          <span class="reveal-hold-text">Hold</span>
+        </div>
+        <div id="reveal-back" class="reveal-face reveal-back hidden">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <button class="btn btn-ghost reveal-done-btn" id="btn-done-reveal" onclick="App.doneReveal()">
+        Done — pass to next player
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Discussion ────────────────────────────────────────────────────────── -->
+  <div id="screen-discussion" class="screen">
+    <div class="discussion-body">
+      <div class="discussion-icon">🗣️</div>
+      <h2>Discuss!</h2>
+      <p class="discussion-desc">
+        Take turns giving one clue about the secret word.<br>
+        Find the imposter before they find you.
+      </p>
+      <div class="discussion-meta">
+        <span id="discussion-player-count"></span> players
+        &middot;
+        <span id="discussion-categories"></span>
+      </div>
+      <div class="discussion-actions">
+        <button class="btn btn-primary btn-lg" onclick="App.showVoting()">Vote Now →</button>
+        <button class="btn btn-ghost" onclick="App.revealAnswer()">Reveal Answer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Voting ────────────────────────────────────────────────────────────── -->
+  <div id="screen-vote" class="screen">
+    <div class="screen-header">
+      <h2>Who's the imposter?</h2>
+    </div>
+    <div class="vote-body">
+      <p class="section-hint">Tap to vote</p>
+      <div id="vote-list" class="vote-list"></div>
+    </div>
+  </div>
+
+  <!-- ── Result ────────────────────────────────────────────────────────────── -->
+  <div id="screen-result" class="screen">
+    <div class="result-body">
+      <div id="result-icon" class="result-icon"></div>
+      <h2 id="result-title"></h2>
+      <p id="result-subtitle" class="result-subtitle"></p>
+      <div class="result-card">
+        <div class="result-row">
+          <span class="result-label">Secret word</span>
+          <span id="result-word" class="result-value"></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Imposter</span>
+          <span id="result-imposter" class="result-value"></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Imposter's hint</span>
+          <span id="result-hint" class="result-value hint-value"></span>
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn btn-primary btn-lg" onclick="App.playAgain()">Play Again</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('home')">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Custom Packs Library ──────────────────────────────────────────────── -->
+  <div id="screen-packs" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="App.back()">‹ Back</button>
+      <h2>Custom Packs</h2>
+    </div>
+    <div class="packs-body">
+      <div id="packs-empty" class="empty-state hidden">
+        <div class="empty-icon">📦</div>
+        <p>No custom packs yet.<br>Create one or import a friend's pack.</p>
+      </div>
+      <div id="packs-list" class="packs-list"></div>
+    </div>
+    <div class="screen-footer packs-footer">
+      <button class="btn btn-outline" onclick="App.promptImportPack()">Import by Code</button>
+      <button class="btn btn-primary" onclick="App.createNewPack()">+ New Pack</button>
+    </div>
+  </div>
+
+  <!-- ── Pack Creator ──────────────────────────────────────────────────────── -->
+  <div id="screen-pack-create" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="App.savePackAndBack()">‹ Back</button>
+      <h2 id="pack-create-heading">New Pack</h2>
+    </div>
+    <div class="pack-create-body">
+      <input
+        type="text"
+        id="pack-name-input"
+        class="text-input"
+        placeholder="Pack name (e.g. Office Banter)"
+        maxlength="40"
+        oninput="App.onPackNameChange()"
+      />
+      <p class="section-hint" id="pack-word-count-hint">0 words — minimum 10 to save</p>
+      <div id="pack-words-list" class="pack-words-list"></div>
+      <button class="btn btn-outline" onclick="App.addWordToPack()">+ Add Word / Hint</button>
+    </div>
+    <div class="screen-footer packs-footer">
+      <button class="btn btn-ghost" id="btn-export-pack" onclick="App.exportPack()" disabled>
+        Export (Share Code)
+      </button>
+      <button class="btn btn-primary" id="btn-save-pack" onclick="App.savePack()" disabled>
+        Save Pack
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Word / Hint Entry Modal ───────────────────────────────────────────── -->
+  <div id="modal-word-entry" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" onclick="App.closeWordModal()"></div>
+    <div class="modal-card">
+      <h2 id="word-modal-title">Add Word</h2>
+      <label class="input-label" for="word-modal-word">Word (what players see)</label>
+      <input type="text" id="word-modal-word" class="text-input" placeholder="e.g. Pizza" maxlength="60" />
+      <label class="input-label" for="word-modal-hint">Hint (what the imposter sees)</label>
+      <input type="text" id="word-modal-hint" class="text-input" placeholder="e.g. Italian food" maxlength="80" />
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="App.confirmWordEntry()">Save</button>
+        <button class="btn btn-ghost" onclick="App.closeWordModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Share Code Modal ──────────────────────────────────────────────────── -->
+  <div id="modal-share-code" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" onclick="App.closeShareModal()"></div>
+    <div class="modal-card">
+      <h2 id="share-modal-title">Share Code</h2>
+      <p id="share-modal-body"></p>
+      <div id="share-code-display" class="share-code"></div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="App.closeShareModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast notification ────────────────────────────────────────────────── -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="static-words.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
