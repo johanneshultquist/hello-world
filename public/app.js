@@ -436,39 +436,7 @@ const App = (() => {
     }
   }
 
-  function showVoting() {
-    const list = document.getElementById('vote-list');
-    list.innerHTML = '';
-    state.players.forEach((name, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'vote-player-btn';
-      btn.textContent = name;
-      btn.onclick = () => castVote(i);
-      list.appendChild(btn);
-    });
-    showScreen('vote');
-  }
-
-  function castVote(playerIndex) {
-    const isCorrect = playerIndex === state.imposterIndex;
-    const imposterName = state.players[state.imposterIndex];
-    const votedName    = state.players[playerIndex];
-    const { word, hint } = state.currentWord;
-
-    document.getElementById('result-icon').textContent     = isCorrect ? '🎉' : '😈';
-    document.getElementById('result-title').textContent    = isCorrect ? 'Imposter caught!' : 'Imposter wins!';
-    document.getElementById('result-subtitle').textContent = isCorrect
-      ? `The group correctly identified ${imposterName}.`
-      : `You voted for ${votedName}, but ${imposterName} was the imposter!`;
-
-    document.getElementById('result-word').textContent     = word;
-    document.getElementById('result-imposter').textContent = imposterName;
-    document.getElementById('result-hint').textContent     = hint;
-
-    showScreen('result');
-  }
-
-  function revealAnswer() {
+function revealAnswer() {
     const imposterName = state.players[state.imposterIndex];
     const { word, hint } = state.currentWord;
 
@@ -782,8 +750,6 @@ const App = (() => {
     startGame,
     showReveal,
     doneReveal,
-    showVoting,
-    castVote,
     revealAnswer,
     playAgain,
 

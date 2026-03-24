@@ -160,24 +160,12 @@
         <span id="discussion-categories"></span>
       </div>
       <div class="discussion-actions">
-        <button class="btn btn-primary btn-lg" onclick="App.showVoting()">Vote Now →</button>
-        <button class="btn btn-ghost" onclick="App.revealAnswer()">Reveal Answer</button>
+        <button class="btn btn-primary btn-lg" onclick="App.revealAnswer()">Reveal Imposter →</button>
       </div>
     </div>
   </div>
 
-  <!-- ── Voting ────────────────────────────────────────────────────────────── -->
-  <div id="screen-vote" class="screen">
-    <div class="screen-header">
-      <h2>Who's the imposter?</h2>
-    </div>
-    <div class="vote-body">
-      <p class="section-hint">Tap to vote</p>
-      <div id="vote-list" class="vote-list"></div>
-    </div>
-  </div>
-
-  <!-- ── Result ────────────────────────────────────────────────────────────── -->
+<!-- ── Result ────────────────────────────────────────────────────────────── -->
   <div id="screen-result" class="screen">
     <div class="result-body">
       <div id="result-icon" class="result-icon"></div>
