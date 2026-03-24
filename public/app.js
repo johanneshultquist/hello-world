@@ -391,9 +391,15 @@ const App = (() => {
   }
 
   function attachRevealHold() {
-    const card   = document.getElementById('reveal-card');
-    const front  = document.getElementById('reveal-front');
-    const back   = document.getElementById('reveal-back');
+    const card = document.getElementById('reveal-card');
+
+    // Remove previous listeners by cloning the card
+    const newCard = card.cloneNode(true);
+    card.parentNode.replaceChild(newCard, card);
+
+    // Query front/back from the cloned card so refs aren't stale
+    const front = newCard.querySelector('.reveal-front');
+    const back  = newCard.querySelector('.reveal-back');
 
     let holding = false;
 
@@ -409,10 +415,6 @@ const App = (() => {
       back.classList.add('hidden');
       front.style.opacity = '1';
     }
-
-    // Remove previous listeners by cloning the card
-    const newCard = card.cloneNode(true);
-    card.parentNode.replaceChild(newCard, card);
 
     newCard.addEventListener('mousedown',  reveal);
     newCard.addEventListener('mouseup',    hide);
