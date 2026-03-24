@@ -199,6 +199,7 @@
       </div>
       <div class="result-actions">
         <button class="btn btn-primary btn-lg" onclick="App.playAgain()">Play Again</button>
+        <button class="btn btn-outline" id="btn-fav-word" onclick="App.favoriteCurrentWord()">⭐ Save Word</button>
         <button class="btn btn-ghost" onclick="App.showScreen('home')">Main Menu</button>
       </div>
     </div>
@@ -209,6 +210,7 @@
     <div class="screen-header">
       <button class="btn-back" onclick="App.back()">‹ Back</button>
       <h2>Custom Packs</h2>
+      <button class="btn-header-action" onclick="App.showScreen('favorites')" title="Favorites">⭐</button>
     </div>
     <div class="packs-body">
       <div id="packs-empty" class="empty-state hidden">
@@ -220,6 +222,26 @@
     <div class="screen-footer packs-footer">
       <button class="btn btn-outline" onclick="App.promptImportPack()">Import by Code</button>
       <button class="btn btn-primary" onclick="App.createNewPack()">+ New Pack</button>
+    </div>
+  </div>
+
+  <!-- ── Favorites ────────────────────────────────────────────────────────── -->
+  <div id="screen-favorites" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="App.back()">‹ Back</button>
+      <h2>Favorites ⭐</h2>
+    </div>
+    <div class="packs-body">
+      <div id="favorites-empty" class="empty-state hidden">
+        <div class="empty-icon">⭐</div>
+        <p>No favorites yet.<br>Star words in the pack editor<br>or save them from the result screen.</p>
+      </div>
+      <div id="favorites-list" class="pack-words-list"></div>
+    </div>
+    <div class="screen-footer">
+      <button class="btn btn-primary btn-lg" id="btn-pack-from-favorites" onclick="App.createPackFromFavorites()" disabled>
+        Create Pack from Favorites
+      </button>
     </div>
   </div>
 

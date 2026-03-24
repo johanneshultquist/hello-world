@@ -26,6 +26,9 @@ const App = (() => {
     // custom packs: [{ id, name, words: [{ word, hint }] }]
     customPacks: [],
 
+    // cloud favorites: [{ word, hint }]
+    favorites: [],
+
     // pack editor state
     editingPackId: null,
     editingPackWords: [],
@@ -59,12 +62,70 @@ const App = (() => {
     localStorage.setItem('iw_packs', JSON.stringify(state.customPacks));
   }
 
+  async function loadFavorites() {
+    try {
+      const res = await fetch('/api/favorites', { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        const data = await res.json();
+        state.favorites = data.favorites || [];
+      }
+    } catch { /* favorites just won't show until next load */ }
+  }
+
+  function isFavorited(word) {
+    return state.favorites.some(f => f.word === word);
+  }
+
+  async function _toggleWordFav(word, hint) {
+    if (isFavorited(word)) {
+      try {
+        await fetch('/api/favorites', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word }),
+          signal: AbortSignal.timeout(5000),
+        });
+        state.favorites = state.favorites.filter(f => f.word !== word);
+        toast('Removed from favorites');
+      } catch { toast('Could not remove — check connection'); }
+    } else {
+      try {
+        await fetch('/api/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word, hint }),
+          signal: AbortSignal.timeout(5000),
+        });
+        state.favorites.push({ word, hint });
+        toast('⭐ Saved to favorites!');
+      } catch { toast('Could not save — check connection'); }
+    }
+    if (document.querySelector('#screen-pack-create.active')) renderPackWords();
+    if (document.querySelector('#screen-favorites.active')) renderFavorites();
+    if (document.querySelector('#screen-result.active')) renderResultFavBtn();
+  }
+
+  async function favoriteCurrentWord() {
+    if (!state.currentWord) return;
+    const { word, hint } = state.currentWord;
+    await _toggleWordFav(word, hint);
+  }
+
+  function renderResultFavBtn() {
+    const btn = document.getElementById('btn-fav-word');
+    if (!btn || !state.currentWord) return;
+    const starred = isFavorited(state.currentWord.word);
+    btn.textContent = starred ? '⭐ Saved!' : '⭐ Save Word';
+    btn.classList.toggle('fav-saved', starred);
+  }
+
   // ── Screen navigation ────────────────────────────────────────────────────
 
   const screenHistory = [];
 
   const screenOnEnter = {
-    packs: () => renderPacksLibrary(),
+    packs:     () => renderPacksLibrary(),
+    favorites: () => renderFavorites(),
   };
 
   function showScreen(id) {
@@ -479,6 +540,7 @@ const App = (() => {
     document.getElementById('result-imposter').textContent = imposterName;
     document.getElementById('result-hint').textContent     = hint;
 
+    renderResultFavBtn();
     showScreen('result');
   }
 
@@ -567,6 +629,7 @@ const App = (() => {
           <div class="pack-word-word">${escapeHtml(w.word)}</div>
           <div class="pack-word-hint">Hint: ${escapeHtml(w.hint)}</div>
         </div>
+        <button class="btn-icon btn-fav${isFavorited(w.word) ? ' fav-active' : ''}" onclick="App._toggleWordFav('${escapeAttr(w.word)}', '${escapeAttr(w.hint)}')">⭐</button>
         <button class="btn-icon" onclick="App._editPackWord(${i})">✏️</button>
         <button class="btn-icon" onclick="App._removePackWord(${i})">✕</button>
       `;
@@ -722,6 +785,48 @@ const App = (() => {
     document.getElementById('modal-share-code').classList.add('hidden');
   }
 
+  // ── Favorites ─────────────────────────────────────────────────────────────
+
+  function renderFavorites() {
+    const list      = document.getElementById('favorites-list');
+    const empty     = document.getElementById('favorites-empty');
+    const createBtn = document.getElementById('btn-pack-from-favorites');
+    list.innerHTML  = '';
+
+    if (!state.favorites.length) {
+      empty.classList.remove('hidden');
+      createBtn.disabled = true;
+      return;
+    }
+
+    empty.classList.add('hidden');
+    createBtn.disabled = false;
+
+    state.favorites.forEach(fav => {
+      const row = document.createElement('div');
+      row.className = 'pack-word-row';
+      row.innerHTML = `
+        <div class="pack-word-text">
+          <div class="pack-word-word">${escapeHtml(fav.word)}</div>
+          <div class="pack-word-hint">Hint: ${escapeHtml(fav.hint)}</div>
+        </div>
+        <button class="btn-icon btn-fav fav-active" onclick="App._toggleWordFav('${escapeAttr(fav.word)}', '${escapeAttr(fav.hint)}')">⭐</button>
+      `;
+      list.appendChild(row);
+    });
+  }
+
+  function createPackFromFavorites() {
+    if (!state.favorites.length) { toast('No favorites yet'); return; }
+    state.editingPackId    = null;
+    state.editingPackWords = state.favorites.map(f => ({ word: f.word, hint: f.hint }));
+    document.getElementById('pack-create-heading').textContent = 'Pack from Favorites';
+    document.getElementById('pack-name-input').value = 'My Favorites';
+    renderPackWords();
+    updatePackSaveBtn();
+    showScreen('pack-create');
+  }
+
   // ── Utilities ─────────────────────────────────────────────────────────────
 
   function escapeHtml(str) {
@@ -746,6 +851,7 @@ const App = (() => {
   function init() {
     loadSettings();
     loadPacks();
+    loadFavorites();
     syncSettingsUI();
 
     // Seed players with 4 empty slots for UX
@@ -803,6 +909,12 @@ const App = (() => {
     exportPack,
     promptImportPack,
     closeShareModal,
+
+    // Favorites
+    _toggleWordFav,
+    favoriteCurrentWord,
+    renderFavorites,
+    createPackFromFavorites,
 
     init,
   };

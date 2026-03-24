@@ -30,6 +30,23 @@ function savePacks(packs) {
 }
 
 // ---------------------------------------------------------------------------
+// Favorites storage (cloud word list)
+// ---------------------------------------------------------------------------
+const FAVORITES_FILE = path.join(__dirname, 'favorites.json');
+
+function loadFavorites() {
+  try {
+    return JSON.parse(fs.readFileSync(FAVORITES_FILE, 'utf8'));
+  } catch {
+    return [];
+  }
+}
+
+function saveFavorites(favs) {
+  fs.writeFileSync(FAVORITES_FILE, JSON.stringify(favs, null, 2));
+}
+
+// ---------------------------------------------------------------------------
 // POST /api/generate-words
 // Body: { categories: string[], difficulty: 'easy'|'medium'|'hard', adultMode: boolean }
 // Returns: { words: Array<{ word, hint, category, difficulty }> }
@@ -130,6 +147,40 @@ app.get('/api/pack/:code', (req, res) => {
   }
 
   res.json({ pack });
+});
+
+// ---------------------------------------------------------------------------
+// GET /api/favorites
+// Returns: { favorites: [{ word, hint }] }
+// ---------------------------------------------------------------------------
+app.get('/api/favorites', (_req, res) => {
+  res.json({ favorites: loadFavorites() });
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/favorites
+// Body: { word, hint }
+// ---------------------------------------------------------------------------
+app.post('/api/favorites', (req, res) => {
+  const { word, hint } = req.body;
+  if (!word || !hint) return res.status(400).json({ error: 'word and hint required' });
+  const favs = loadFavorites();
+  if (!favs.find(f => f.word === word)) {
+    favs.push({ word, hint });
+    saveFavorites(favs);
+  }
+  res.json({ ok: true });
+});
+
+// ---------------------------------------------------------------------------
+// DELETE /api/favorites
+// Body: { word }
+// ---------------------------------------------------------------------------
+app.delete('/api/favorites', (req, res) => {
+  const { word } = req.body;
+  if (!word) return res.status(400).json({ error: 'word required' });
+  saveFavorites(loadFavorites().filter(f => f.word !== word));
+  res.json({ ok: true });
 });
 
 // ---------------------------------------------------------------------------
