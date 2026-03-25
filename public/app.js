@@ -493,6 +493,8 @@ const App = (() => {
       const categoryNames = Object.keys(state.selectedCategories);
       document.getElementById('discussion-player-count').textContent = state.players.length;
       document.getElementById('discussion-categories').textContent   = categoryNames.join(', ');
+      const starterIndex = Math.floor(Math.random() * state.players.length);
+      document.getElementById('discussion-starter').textContent = state.players[starterIndex];
       showScreen('discussion');
     }
   }

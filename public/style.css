@@ -503,6 +503,19 @@ html, body {
 .discussion-icon { font-size: 3rem; }
 .discussion-body h2 { font-size: 1.8rem; font-weight: 800; }
 .discussion-desc { color: var(--text-muted); line-height: 1.6; }
+.discussion-starter-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 12px 24px;
+  width: 100%;
+}
+.discussion-starter-label { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.discussion-starter-name  { font-size: 1.4rem; font-weight: 800; color: var(--accent-lit); }
+
 .discussion-meta { color: var(--accent-lit); font-size: 0.9rem; font-weight: 600; }
 .discussion-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 8px; }
 
