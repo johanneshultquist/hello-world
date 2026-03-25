@@ -185,6 +185,13 @@ html, body {
   font-size: 0.95rem;
 }
 
+.version-tag {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  opacity: 0.5;
+  margin-top: 0.25rem;
+}
+
 .home-actions {
   display: flex;
   flex-direction: column;
