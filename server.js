@@ -63,9 +63,9 @@ app.post('/api/generate-words', async (req, res) => {
     : 'All content must be family-friendly and appropriate for all ages. Avoid any mature, violent, or offensive themes.';
 
   const difficultyGuide = {
-    easy:   'Common, widely-known items. The hint should be a broad, obvious category (e.g. word="Pizza", hint="Italian food").',
-    medium: 'Moderately specific items. The hint should be less obvious, requiring some knowledge (e.g. word="Risotto", hint="Rice dish").',
-    hard:   'Specific or niche items. The hint should be vague enough to make blending in challenging for the imposter (e.g. word="Neapolitan Margherita", hint="Italian dish").',
+    easy:   'Common, widely-known items. The hint should be a vague property, feeling, or surprising fact — NOT a subcategory label. BAD: word="Pizza", hint="Italian food". GOOD: word="Pizza", hint="People have strong opinions about it".',
+    medium: 'Moderately specific items. The hint should be an abstract association that could fit multiple things. BAD: word="Risotto", hint="Rice dish". GOOD: word="Risotto", hint="Takes patience to get right".',
+    hard:   'Specific or niche items. The hint should be cryptic — a consequence, a single evocative phrase, or an unexpected fact. BAD: word="Époisses", hint="French cheese". GOOD: word="Époisses", hint="Banned from public transport".',
   };
 
   const prompt = `You are generating content for the pass-and-play party game "Imposter Who?".
@@ -73,7 +73,8 @@ app.post('/api/generate-words', async (req, res) => {
 Rules:
 - Generate exactly 40 word/hint pairs spread across the requested categories.
 - Each "word" is the secret word that most players see.
-- Each "hint" is what the IMPOSTER sees instead — vague enough that they can bluff, but not so obvious it gives the word away.
+- Each "hint" is what the IMPOSTER sees instead — vague enough that they cannot immediately deduce the word, but enough that they can bluff.
+- CRITICAL HINT RULE: Hints must NEVER be a subcategory label or type description (e.g. NOT "Italian food", NOT "Drinking game", NOT "Board game"). Instead use a vague property, feeling, social context, or surprising fact that could apply to several things in the space.
 - ${contentPolicy}
 - Difficulty: ${difficulty}. ${difficultyGuide[difficulty]}
 - Vary the words — avoid obvious duplicates or overly similar entries.
