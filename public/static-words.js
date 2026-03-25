@@ -309,6 +309,179 @@ const STATIC_WORDS = {
     { word: 'Blaming Autocorrect', hint: 'Technology as alibi', difficulty: 'hard' },
   ],
 
+  // ── Cheeky tier ───────────────────────────────────────────────────────────
+
+  'Walk of Shame': [
+    { word: 'Smudged mascara',      hint: 'Evidence left on your face',         difficulty: 'easy'   },
+    { word: 'Taxi shame',           hint: 'The quickest exit',                  difficulty: 'easy'   },
+    { word: 'Flat shoes',           hint: 'A practical adjustment',             difficulty: 'easy'   },
+    { word: 'Hickey',               hint: 'Visible reminder',                   difficulty: 'easy'   },
+    { word: 'Dead phone',           hint: 'No alibi available',                 difficulty: 'medium' },
+    { word: 'Sunglasses',           hint: 'Hiding something',                   difficulty: 'medium' },
+    { word: 'Kebab',                hint: '3am decision that followed you home', difficulty: 'medium' },
+    { word: 'Yesterday\'s clothes', hint: 'Hard to miss',                       difficulty: 'medium' },
+    { word: 'Bed hair',             hint: 'Untamed evidence',                   difficulty: 'hard'   },
+    { word: 'Regret',               hint: 'Arrives with the daylight',          difficulty: 'hard'   },
+  ],
+
+  'Red Flags': [
+    { word: 'Love bombing',    hint: 'Overwhelming at the start',         difficulty: 'easy'   },
+    { word: 'Negging',         hint: 'Backhanded compliment',             difficulty: 'easy'   },
+    { word: 'Ghosting',        hint: 'Sudden disappearance',              difficulty: 'easy'   },
+    { word: 'Breadcrumbing',   hint: 'Just enough to keep you interested',difficulty: 'easy'   },
+    { word: 'No friends',      hint: 'Everyone else moved on',            difficulty: 'medium' },
+    { word: 'Vaguebooking',    hint: 'Fishing for attention publicly',    difficulty: 'medium' },
+    { word: 'Jealousy',        hint: 'Disguised as caring',               difficulty: 'medium' },
+    { word: 'Lying',           hint: 'Small at first',                    difficulty: 'medium' },
+    { word: 'Clingy',          hint: 'Needs constant reassurance',        difficulty: 'hard'   },
+    { word: 'Narcissism',      hint: 'It\'s always about them',           difficulty: 'hard'   },
+  ],
+
+  'First Date Lies': [
+    { word: 'Hiking',             hint: 'Sounds healthy',               difficulty: 'easy'   },
+    { word: 'Reading',            hint: 'Sounds intelligent',           difficulty: 'easy'   },
+    { word: 'Fine dining',        hint: 'Sounds sophisticated',         difficulty: 'easy'   },
+    { word: 'Early riser',        hint: 'Sounds disciplined',           difficulty: 'easy'   },
+    { word: 'Non-smoker',         hint: 'Technically true sometimes',   difficulty: 'medium' },
+    { word: 'Gym lover',          hint: 'Aspirational truth',           difficulty: 'medium' },
+    { word: 'Dog person',         hint: 'Very relatable claim',         difficulty: 'medium' },
+    { word: 'Easy-going',         hint: 'Self-assessment',              difficulty: 'medium' },
+    { word: 'Over it',            hint: 'Definitely not true',          difficulty: 'hard'   },
+    { word: 'Financially stable', hint: 'Broad interpretation',         difficulty: 'hard'   },
+  ],
+
+  'Bar Games': [
+    { word: 'Beer pong',     hint: 'Accuracy required',       difficulty: 'easy'   },
+    { word: 'Ring of fire',  hint: 'Cards determine fate',    difficulty: 'easy'   },
+    { word: 'Flip cup',      hint: 'Speed matters',           difficulty: 'easy'   },
+    { word: 'Jenga shots',   hint: 'Structural tension',      difficulty: 'easy'   },
+    { word: 'Roxanne',       hint: 'Musical trigger',         difficulty: 'medium' },
+    { word: 'Fuzzy duck',    hint: 'Tongue twister',          difficulty: 'medium' },
+    { word: 'Power hour',    hint: 'Endurance test',          difficulty: 'medium' },
+    { word: 'Pub quiz',      hint: 'Knowledge rewarded',      difficulty: 'medium' },
+    { word: 'Shot roulette', hint: 'Mystery contents',        difficulty: 'hard'   },
+    { word: 'Truth dare',    hint: 'Forced honesty',          difficulty: 'hard'   },
+  ],
+
+  'House Party': [
+    { word: 'Broken glass',      hint: 'Inevitable casualty',                  difficulty: 'easy'   },
+    { word: 'Playlist fight',    hint: 'Musical disagreement',                 difficulty: 'easy'   },
+    { word: 'Uninvited guest',   hint: 'Someone\'s plus one\'s plus one',      difficulty: 'easy'   },
+    { word: 'Bathroom crying',   hint: 'Private moment, public setting',       difficulty: 'easy'   },
+    { word: 'Stolen booze',      hint: 'Someone helped themselves',            difficulty: 'medium' },
+    { word: 'Accidental hookup', hint: 'Unplanned development',                difficulty: 'medium' },
+    { word: 'Early casualty',    hint: 'Gone before midnight',                 difficulty: 'medium' },
+    { word: 'Noise complaint',   hint: 'Neighbours disagree',                  difficulty: 'medium' },
+    { word: 'Missing mixer',     hint: 'Requires improvisation',               difficulty: 'hard'   },
+    { word: 'Drunk confession',  hint: 'Said too much',                        difficulty: 'hard'   },
+  ],
+
+  'Hangover Cures': [
+    { word: 'Bloody Mary',   hint: 'Fight it with more of it',   difficulty: 'easy'   },
+    { word: 'Berocca',       hint: 'Fizzy solution',             difficulty: 'easy'   },
+    { word: 'Flat Coke',     hint: 'Childhood remedy',           difficulty: 'easy'   },
+    { word: 'Greasy bacon',  hint: 'Absorbs everything',         difficulty: 'easy'   },
+    { word: 'McDonalds',     hint: 'Reliable comfort',           difficulty: 'medium' },
+    { word: 'Electrolytes',  hint: 'Scientific approach',        difficulty: 'medium' },
+    { word: 'More alcohol',  hint: 'Controversial strategy',     difficulty: 'medium' },
+    { word: 'Full English',  hint: 'Comprehensive solution',     difficulty: 'medium' },
+    { word: 'Dark room',     hint: 'Sensory deprivation',        difficulty: 'hard'   },
+    { word: 'Self pity',     hint: 'Ineffective but common',     difficulty: 'hard'   },
+  ],
+
+  'Incognito Search': [
+    { word: 'Weird symptoms',      hint: 'Best not to ask aloud',       difficulty: 'easy'   },
+    { word: 'Ex\'s profile',       hint: 'Research mission',            difficulty: 'easy'   },
+    { word: 'Salary check',        hint: 'Competitive curiosity',       difficulty: 'easy'   },
+    { word: 'Revenge ideas',       hint: 'Hypothetical planning',       difficulty: 'easy'   },
+    { word: 'Fetishes',            hint: 'Personal curiosity',          difficulty: 'medium' },
+    { word: 'Conspiracy theories', hint: 'Down the rabbit hole',        difficulty: 'medium' },
+    { word: 'Cosmetic surgery',    hint: 'Considering options quietly', difficulty: 'medium' },
+    { word: 'STI symptoms',        hint: 'Medical concern',             difficulty: 'medium' },
+    { word: 'Astrology',           hint: 'Don\'t tell anyone',          difficulty: 'hard'   },
+    { word: 'Embarrassing questions', hint: 'Can\'t ask a human',       difficulty: 'hard'   },
+  ],
+
+  'Awkward Moments': [
+    { word: 'Wrong wave',         hint: 'Committed too early',          difficulty: 'easy'   },
+    { word: 'Forgotten name',     hint: 'Too late to ask now',          difficulty: 'easy'   },
+    { word: 'Door held',          hint: 'Misjudged the distance',       difficulty: 'easy'   },
+    { word: 'Reply all',          hint: 'Catastrophic button',          difficulty: 'easy'   },
+    { word: 'Wrong laugh',        hint: 'Misread the room',             difficulty: 'medium' },
+    { word: 'Mispronunciation',   hint: 'First time saying it aloud',   difficulty: 'medium' },
+    { word: 'Ghosted encounter',  hint: 'Face to face this time',       difficulty: 'medium' },
+    { word: 'Accidental like',    hint: 'Deep dive exposed',            difficulty: 'medium' },
+    { word: 'Drunk boss',         hint: 'Power dynamics shift',         difficulty: 'hard'   },
+    { word: 'Misread hug',        hint: 'Handshake gone wrong',         difficulty: 'hard'   },
+  ],
+
+  // ── Explicit tier ──────────────────────────────────────────────────────────
+
+  'Kinks': [
+    { word: 'Roleplay',       hint: 'Character work',            difficulty: 'easy'   },
+    { word: 'Handcuffs',      hint: 'Restricted movement',       difficulty: 'easy'   },
+    { word: 'Blindfold',      hint: 'Heightened other senses',   difficulty: 'easy'   },
+    { word: 'Voyeurism',      hint: 'Watching from a distance',  difficulty: 'easy'   },
+    { word: 'Foot fetish',    hint: 'Very specific interest',    difficulty: 'medium' },
+    { word: 'Wax play',       hint: 'Temperature sensation',     difficulty: 'medium' },
+    { word: 'Uniforms',       hint: 'Costume required',          difficulty: 'medium' },
+    { word: 'Praise kink',    hint: 'Needs validation',          difficulty: 'medium' },
+    { word: 'Power exchange', hint: 'Control dynamics',          difficulty: 'hard'   },
+    { word: 'Public risk',    hint: 'Location-dependent thrill', difficulty: 'hard'   },
+  ],
+
+  'Euphemisms': [
+    { word: 'Netflix chill',       hint: 'Not actually about TV',       difficulty: 'easy'   },
+    { word: 'Getting lucky',       hint: 'Fortune favours',             difficulty: 'easy'   },
+    { word: 'Nightcap',            hint: 'Last drink, maybe',           difficulty: 'easy'   },
+    { word: 'Friends benefits',    hint: 'Extra services',              difficulty: 'easy'   },
+    { word: 'Sleeping together',   hint: 'Minimal sleeping',            difficulty: 'medium' },
+    { word: 'Knocking boots',      hint: 'Country expression',          difficulty: 'medium' },
+    { word: 'Horizontal tango',    hint: 'Dancing, sort of',            difficulty: 'medium' },
+    { word: 'Doing it',            hint: 'Deliberately vague',          difficulty: 'medium' },
+    { word: 'Fooling around',      hint: 'Not serious, allegedly',      difficulty: 'hard'   },
+    { word: 'Hooking up',          hint: 'Means different things to different people', difficulty: 'hard' },
+  ],
+
+  'Things Your Ex Did': [
+    { word: 'Showed up',      hint: 'Uninvited appearance',                  difficulty: 'easy'   },
+    { word: 'Read receipts',  hint: 'Deliberate visibility',                 difficulty: 'easy'   },
+    { word: 'Vague lyrics',   hint: 'Passive aggression via playlist',       difficulty: 'easy'   },
+    { word: 'Drunk text',     hint: '2am communication',                     difficulty: 'easy'   },
+    { word: 'Kept stuff',     hint: 'Leverage retained',                     difficulty: 'medium' },
+    { word: 'Blame shift',    hint: 'Rewriting history',                     difficulty: 'medium' },
+    { word: 'Love triangle',  hint: 'Complicated situation',                 difficulty: 'medium' },
+    { word: 'Fake apology',   hint: 'Technically said sorry',                difficulty: 'medium' },
+    { word: 'Told everyone',  hint: 'Your business, publicly shared',        difficulty: 'hard'   },
+    { word: 'Moved on fast',  hint: 'Suspiciously fast',                     difficulty: 'hard'   },
+  ],
+
+  'One Night Stand': [
+    { word: 'Dawn escape',      hint: 'Early morning exit strategy',   difficulty: 'easy'   },
+    { word: 'Fake meeting',     hint: 'Invented excuse',               difficulty: 'easy'   },
+    { word: 'Shame Uber',       hint: 'Discreet transport',            difficulty: 'easy'   },
+    { word: 'Fake name',        hint: 'Protective measure',            difficulty: 'easy'   },
+    { word: 'Bathroom text',    hint: 'Covert communication',          difficulty: 'medium' },
+    { word: 'Accidental like',  hint: 'Digital evidence of research',  difficulty: 'medium' },
+    { word: 'Morning regret',   hint: 'Daylight changes things',       difficulty: 'medium' },
+    { word: 'Breakfast debate', hint: 'To stay or not',                difficulty: 'medium' },
+    { word: 'Lost underwear',   hint: 'Left behind',                   difficulty: 'hard'   },
+    { word: 'Wrong address',    hint: 'Navigational error',            difficulty: 'hard'   },
+  ],
+
+  'Drunk Regrets': [
+    { word: 'Texted ex',          hint: 'Emotional impulse',               difficulty: 'easy'   },
+    { word: 'Called mum',         hint: 'Seeking comfort at 2am',          difficulty: 'easy'   },
+    { word: 'Big promise',        hint: 'Very committed at the time',      difficulty: 'easy'   },
+    { word: 'Risky photo',        hint: 'Evidence created',                difficulty: 'easy'   },
+    { word: 'Drunk shopping',     hint: 'Morning surprise delivery',       difficulty: 'medium' },
+    { word: 'Confessed feelings', hint: 'Liquid courage did the talking',  difficulty: 'medium' },
+    { word: 'Booked flight',      hint: 'Ambitious decision',              difficulty: 'medium' },
+    { word: 'Started fight',      hint: 'Escalated quickly',               difficulty: 'medium' },
+    { word: 'Overshared',         hint: 'Too much information',            difficulty: 'hard'   },
+    { word: 'Accepted plans',     hint: 'Future you\'s problem',           difficulty: 'hard'   },
+  ],
+
   'Adult Scenarios': [
     // easy
     { word: 'One Night Stand', hint: 'No strings attached', difficulty: 'easy' },
@@ -353,6 +526,21 @@ const CATEGORY_META = {
   'Drinking Culture':  { icon: '🍺', adult: true  },
   'Dirty Secrets':     { icon: '🤫', adult: true  },
   'Adult Scenarios':   { icon: '😈', adult: true  },
+  // cheeky tier
+  'Walk of Shame':     { icon: '🚶', adult: true  },
+  'Red Flags':         { icon: '🚩', adult: true  },
+  'First Date Lies':   { icon: '💬', adult: true  },
+  'Bar Games':         { icon: '🎮', adult: true  },
+  'House Party':       { icon: '🏠', adult: true  },
+  'Hangover Cures':    { icon: '🤢', adult: true  },
+  'Incognito Search':  { icon: '🕵️', adult: true  },
+  'Awkward Moments':   { icon: '😬', adult: true  },
+  // explicit tier
+  'Kinks':             { icon: '🔞', adult: true  },
+  'Euphemisms':        { icon: '😏', adult: true  },
+  'Things Your Ex Did':{ icon: '💔', adult: true  },
+  'One Night Stand':   { icon: '🌙', adult: true  },
+  'Drunk Regrets':     { icon: '🥴', adult: true  },
 };
 
 // Pick N random words from a category at a given difficulty (falls back to any difficulty)
